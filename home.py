@@ -13,32 +13,37 @@ def home():
 def controls():
     return render_template('controls.html')
 
+@app.route('/controls2')
+def controls2():
+    return render_template('controls2.html')
+
 @app.route('/getCommand')
 def getCommand():
    try:
       with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+
          cur = con.cursor()
          cur.execute("SELECT command, updown, leftright, tofro FROM commands ORDER BY issued_date DESC LIMIT 1")
          rows = cur.fetchall()
-         thecommand = {{}}
+         thecommand = {}
          if len(rows) > 0:
             for row in rows:
-               thecommand["command"] = row["command"]
-               thecommand["updown"] = row["updown"]
-               thecommand["leftright"] = row["leftright"]
-               thecommand["tofro"] = row["tofro"]
+               #msg = "made it into row"
+               thecommand["command"] = row[0]
+               thecommand["updown"] = row[1]
+               thecommand["leftright"] = row[2]
+               thecommand["tofro"] = row[3]
             cur.execute("DELETE FROM commands")
          else:
             thecommand["command"] = "none"
+
          return jsonify(thecommand)
    except:
-#     raise
-#     msg = "failed"
       con.rollback()
+      raise;
    finally:
-#      return msg
       con.close()
-
+ 
 
 
 
@@ -46,25 +51,22 @@ def getCommand():
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
    try:
-      c = request.form['command']
+      c = request.form['command'] 
       updown = request.form['updown']
       leftright = request.form['leftright']
       tofro = request.form['tofro']
-
+      
       with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
          cur = con.cursor()
-         cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)",
-            (c,updown,leftright,tofro,datetime.today()))
+         cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
+            (c,updown,leftright,tofro,datetime.today()))  
          con.commit()
-         else:
-            thecommand["command"] = "none"
-         return jsonify(thecommand)
-   except:
-#     raise
-#     msg = "failed"
+         msg = "record added"
+   except: 
+      msg = "failed"     
       con.rollback()
    finally:
-#      return msg
+      return  msg
       con.close()
 
 
