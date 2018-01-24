@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
   <head>
     <title>Fly Baby! Fly!</title>
@@ -11,99 +11,138 @@
     </style>
   </head>
   <body>
-    <div class="container-fluid">
-      <div class="row margins">
-        <div class="col-6">
-          <div class="row">
-            <div class="col-4">
-              &nbsp;
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-4">
-              &nbsp;
-            </div>
-          </div>
+      <div class="container-fluid">
+          <div class="row margins">
+              <div class="col-6">
+                  <div class="row">
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                      <div class="col-4">
+                          <button type="button" class="btn btn-primary btn-lg" id="up"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                      <div class="col-2">
+                          <button type="button" class="btn btn-primary btn-lg" id="left"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                      <div class="col-2">
+                          <button type="button" class="btn btn-primary btn-lg" id="right"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-2">
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                      <div class="col-4">
+                          <button type="button" class="btn btn-primary btn-lg" id="down"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                  </div>
+              </div>
+              <div class="col-6">
+                  <div class="row">
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                      <div class="col-4">
+                          <button type="button" class="btn btn-primary btn-lg" id="forward"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                      <div class="col-2">
+                          &nbsp;
 
-          <div class="row">
-            <div class="col-2">
-              &nbsp;
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-left" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-2">
-              &nbsp;
-            </div>
-            <div class="col-2">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-right" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-2">
-            </div>
+                      </div>
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                      <div class="col-2">
+                          &nbsp;
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                      <div class="col-4">
+                          <button type="button" class="btn btn-primary btn-lg" id="backward"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="col-4">
+                          &nbsp;
+                      </div>
+                  </div>
+              </div>
           </div>
-
-          <div class="row">
-            <div class="col-4">
-              &nbsp;
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-4">
-              &nbsp;
-            </div>
-          </div>
-
-        </div>
-        <div class="col-6">
-          <div class="row">
-            <div class="col-4">
-              &nbsp;
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-4">
-              &nbsp;
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-2">
-              &nbsp;
-            </div>
-            <div class="col-2">
-              &nbsp;
-            </div>
-            <div class="col-2">
-              &nbsp;
-
-            </div>
-            <div class="col-2">
-              &nbsp;
-            </div>
-            <div class="col-2">
-              &nbsp;
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-4">
-              &nbsp;
-            </div>
-            <div class="col-4">
-              <button type="button" class="btn btn-primary btn-lg"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
-            </div>
-            <div class="col-4">
-              &nbsp;
-            </div>
-          </div>
-        </div>
       </div>
-    </div>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
+      <script>
+          $(document).ready(function () {
+              $("#up").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "1", leftright: "0", tofro: "0" });
+              });
+              $("#up").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+              $("#down").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "-1", leftright: "0", tofro: "0" });
+              });
+              $("#down").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+              $("#left").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "1", tofro: "0" });
+              });
+              $("#left").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+              $("#right").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "-1", tofro: "0" });
+              });
+              $("#right").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+              $("#forward").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "1" });
+              });
+              $("#forward").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+              $("#backward").on('tapstart', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "-1" });
+              });
+              $("#backward").on('tapend', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              });
+
+          });
+
+      </script>
   </body>
 </html>
