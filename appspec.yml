@@ -2,6 +2,7 @@
 version: 0.0
 os: linux
 files:
-  - source: /home.py
+  - source: /
     destination: /var/www/FlaskApps/HelloWorld/
-    overwrite: true
+  - source: /templates/
+    destination: /var/www/FlaskApps/HelloWorld/templates
