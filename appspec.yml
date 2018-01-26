@@ -4,3 +4,4 @@ os: linux
 files:
   - source: /home.py
     destination: /var/www/FlaskApps/HelloWorld/
+    overwrite: true
