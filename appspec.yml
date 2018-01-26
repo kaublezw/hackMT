@@ -3,4 +3,4 @@ version: 0.0
 os: linux
 files:
   - source: /home.py
-    destination: /var/www/FlaskApps/HelloWorld/home.py
+    destination: /var/www/FlaskApps/HelloWorld/
