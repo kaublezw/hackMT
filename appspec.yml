@@ -5,4 +5,4 @@ files:
   - source: /
     destination: /var/www/FlaskApps/HelloWorld/
   - source: /templates/
-    destination: /var/www/FlaskApps/HelloWorld/templates
+    destination: /var/www/FlaskApps/HelloWorld/templates/
