@@ -7,7 +7,7 @@ app.debug = True
 
 @app.route('/')
 def home():
-    return  "Hello World"
+    return  "Hello World 2"
 
 @app.route('/controls')
 def controls():
