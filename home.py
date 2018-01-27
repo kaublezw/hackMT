@@ -37,9 +37,9 @@ def registerUser():
 
             #Determines which team the player should be in
             #If noone in database, player is assigned team 1 automatically
-            if team1count > team2count
+            if team1count > team2count:
                 team = 2
-            else
+            else:
                 team = 1
         
             cur.execute("INSERT INTO players (name, token, raceid, team) VALUES (?,?,?,?)", (name, token, raceid, team))
