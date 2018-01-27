@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
-from secrets import secrets
+import os
 import sqlite3 as sql
 
 app=Flask(__name__)
@@ -25,7 +25,7 @@ def registerUser():
         try:
             team = request.form['name']
             raceid = request.form['raceid']
-            token = secrets.token_urlsafe(16)
+            token = urandom(12).encode('hex')
  
             cur = con.cursor()
             cur.execute("SELECT count(*) FROM players WHERE team = 1")
