@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
 import sqlite3 as sql
+import secrets
 app=Flask(__name__)
 
 app.debug = True
@@ -17,64 +18,125 @@ def controls():
 def controls2():
     return render_template('controls2.html')
 
+@app.route('/registerUser', methods=['POST'])
+def registerUser():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            team = request.form['name']
+            raceid = request.form['raceid']
+            token = secrets.token_urlsafe(16)
+ 
+            cur = con.cursor()
+            cur.execute("SELECT count(*) FROM players WHERE team = 1")
+            row = cur.fetchone()
+        
+            team1count = row[0]
+            cur.execute("SELECT count(*) FROM players WHERE team = 2")
+            row = cur.fetchone()
+            team2count = row[0]
+
+            #Determines which team the player should be in
+            #If noone in database, player is assigned team 1 automatically
+            if team1count > team2count
+                team = 2
+            else
+                team = 1
+        
+            cur.execute("INSERT INTO players (name, token, raceid, team) VALUES (?,?,?,?)", (name, token, raceid, team))
+            con.commit()
+
+            return token
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close()
+    
+    
+    
+
 @app.route('/getCommand')
 def getCommand():
-   try:
-      team = request.args.get('team')
-      with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            team = request.args.get('team')
 
-         cur = con.cursor()
-         cur.execute("SELECT command, updown, leftright, tofro FROM commands WHERE team = ? ORDER BY issued_date DESC LIMIT 1", team)
-         rows = cur.fetchall()
-         thecommand = {}
-         if len(rows) > 0:
-            for row in rows:
-               #msg = "made it into row"
-               thecommand["command"] = row[0]
-               thecommand["updown"] = row[1]
-               thecommand["leftright"] = row[2]
-               thecommand["tofro"] = row[3]
-            cur.execute("DELETE FROM commands")
-         else:
-            thecommand["command"] = "none"
+            cur = con.cursor()
+            cur.execute("SELECT command, updown, leftright, tofro FROM commands WHERE team = ? ORDER BY issued_date DESC LIMIT 1", team)
+            rows = cur.fetchall()
+            thecommand = {}
+            if len(rows) > 0:
+                for row in rows:
+                    #msg = "made it into row"
+                    thecommand["command"] = row[0]
+                    thecommand["updown"] = row[1]
+                    thecommand["leftright"] = row[2]
+                    thecommand["tofro"] = row[3]
+                cur.execute("DELETE FROM commands")
+            else:
+                thecommand["command"] = "none"
 
-         return jsonify(thecommand)
-   except:
-      con.rollback()
-      raise;
-   finally:
-      con.close()
+            return jsonify(thecommand)
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close()
  
 
-
+@app.route('/queueCommand', methods=['POST'])
+def queueCommand():
+    with sql.connect("//var//www/FLASK//HelloWorld//poc") as con:
+        try:
+            token = request.args.get('token')
+            raceid = request.args.get('raceid')
+    
+    
+            cur = con.cursor()
+            cur.execute("SELECT * FROM players WHERE token = ? AND raceid = ?", (token, raceid)) 
+            rows = cur.fetchall()
+            if len(rows) > 0:
+                c = request.form['command'] 
+                updown = request.form['updown']
+                leftright = request.form['leftright']
+                tofro = request.form['tofro']
+                cur.execute("INSERT INTO commands_queue(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
+                    (c,updown,leftright,tofro,datetime.today()))  
+                con.commit()
+                msg = "record added"
+        except: 
+            msg = "failed"     
+            con.rollback()
+        finally:
+            return  msg
+            con.close()
 
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
-   try:
-      token = request.args.get('token')
-      raceid = request.args.get('raceid')
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:C
+            token = request.form['token']
 
 
-      with sql.connect("//var//www//FlaskApps//HelloWord//poc") as con:
-         cur = con.cursor()
-         cur.execute("SELECT * FROM players WHERE token = ? AND raceid = ?", (token, raceid)) 
-         rows = cur.fetchall()
-         if len(rows) > 0:
-             c = request.form['command'] 
-             updown = request.form['updown']
-             leftright = request.form['leftright']
-             tofro = request.form['tofro']
-             cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
-                (c,updown,leftright,tofro,datetime.today()))  
-             con.commit()
-             msg = "record added"
-   except: 
-      msg = "failed"     
-      con.rollback()
-   finally:
-      return  msg
-      con.close()
+            cur = con.cursor()
+            cur.execute("SELECT * FROM players WHERE token = ?", (token)) 
+            rows = cur.fetchall()
+            if len(rows) > 0:
+                c = request.form['command'] 
+                updown = request.form['updown']
+                leftright = request.form['leftright']
+                tofro = request.form['tofro']
+                cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
+                   (c,updown,leftright,tofro,datetime.today()))  
+                con.commit()
+                msg = "record added"
+        except: 
+            msg = "failed"     
+            con.rollback()
+        finally:
+            return  msg
+            con.close()
 
 
 
