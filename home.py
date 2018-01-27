@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, jsonify
 from datetime import datetime
+from secrets import secrets
 import sqlite3 as sql
-import secrets
+
 app=Flask(__name__)
 
 app.debug = True
