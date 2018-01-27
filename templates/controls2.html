@@ -12,6 +12,9 @@
   </head>
   <body>
       <div class="container-fluid">
+          <input type="radio" name="team" id="team1" />&nbsp; Team 1 <br />
+
+          <input type="radio" name="team" id="team2" />&nbsp; Team 2
           <div class="row margins">
               <div class="col-6">
                   <div class="row">
@@ -103,44 +106,39 @@
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
       <script>
+
+          var getQueryString = function (field, url) {
+              var href = url ? url : window.location.href;
+              var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+              var string = reg.exec(href);
+              return string ? string[1] : null;
+          };
+
           $(document).ready(function () {
-              $("#up").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "1", leftright: "0", tofro: "0" });
+
+
+              $("#up").on('tap', function () {
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "1", leftright: "0", tofro: "0" });
               });
-              $("#up").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#down").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "-1", leftright: "0", tofro: "0" });
-              });
-              $("#down").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#left").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "1", tofro: "0" });
-              });
-              $("#left").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#right").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "-1", tofro: "0" });
-              });
-              $("#right").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#forward").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "1" });
-              });
-              $("#forward").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#backward").on('tapstart', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "-1" });
-              });
-              $("#backward").on('tapend', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
+              $("#down").on('tap', function () {
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "-1", leftright: "0", tofro: "0" });
               });
 
+              $("#left").on('tap', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "1", tofro: "0" });
+              });
+
+              $("#right").on('tap', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "-1", tofro: "0" });
+              });
+
+              $("#forward").on('tap', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "1" });
+              });
+
+              $("#backward").on('tap', function () {
+                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "-1" });
+              });
           });
 
       </script>
