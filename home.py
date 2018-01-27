@@ -53,6 +53,10 @@ def registerUser():
         finally:
             con.close()
     
+<<<<<<< HEAD
+    
+    
+=======
 @app.route('/getConfig')
 def getConfig():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
@@ -83,6 +87,7 @@ def getConfig():
             raise;
         finally:
             con.close()      
+>>>>>>> 4a39773aa22379803c8d4fd894e79f7a8f3b81ff
 
 @app.route('/getCommand')
 def getCommand():
@@ -213,7 +218,6 @@ def updateBlimpConfig():
         finally:
             return msg
             con.close()
-            
 
 if __name__ == "__main__":
    app.run(debug=True)
