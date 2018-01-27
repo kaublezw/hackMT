@@ -115,7 +115,7 @@ def queueCommand():
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:C
+        try:
             token = request.form['token']
 
 
@@ -138,7 +138,34 @@ def issueCommand():
             return  msg
             con.close()
 
+@app.route('/updateBlimpConfig', methods=['POST'])
+def updateBlimpConfig():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            cur = con.cursor()
+            team = request.form['team']
+            trimupdown = request.form['trimupdown']
+            trimleftright = request.form['trimleftright']
+            upduration = request.form['upduration']
+            leftrightduration = request.form['leftrightduration']
+            tofroduration = request.form['tofroduration']
+            upspeed = request.form['upspeed']
+            tofrospeed = request.form['tofrospeed']
+            leftrightspeed = request.form['leftrightspeed']
 
+            cur.execute("UPDATE INTO blimpconfig SET trimupdown = ?, trimleftright = ?, upduration = ?, leftrightduration = ?,"
+                        "tofroduration = ?, upspeed = ?, tofrospeed = ?, leftrightspeed = ? WHERE team = ?",
+                        (trimupdown, trimleftright, upduration, leftrightduration, tofroduration, upspeed, tofrospeed, leftrightspeed,
+                         team))
+            con.commit()
+            msg = "record added"
+        except:
+            msg = "failed"
+            con.rollback()
+        finally:
+            return msg
+            con.close()
+            
 
 if __name__ == "__main__":
    app.run(debug=True)
