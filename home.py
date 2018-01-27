@@ -62,7 +62,7 @@ def getConfig():
             cur.execute("SELECT * FROM blimpconfig WHERE team = ?", team)
             row = cur.fetchone()
             config = {}
-            if row != null
+            if len(row) > 0:
                 config["team"] = row.team
                 config["trimupdown"] = row.trimupdown
                 config["trimleftright"] = row.trimleftright
