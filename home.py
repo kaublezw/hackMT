@@ -20,10 +20,11 @@ def controls2():
 @app.route('/getCommand')
 def getCommand():
    try:
+      team = request.args.get('team')
       with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
 
          cur = con.cursor()
-         cur.execute("SELECT command, updown, leftright, tofro FROM commands ORDER BY issued_date DESC LIMIT 1")
+         cur.execute("SELECT command, updown, leftright, tofro FROM commands WHERE team = ? ORDER BY issued_date DESC LIMIT 1", team)
          rows = cur.fetchall()
          thecommand = {}
          if len(rows) > 0:
@@ -51,17 +52,23 @@ def getCommand():
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
    try:
-      c = request.form['command'] 
-      updown = request.form['updown']
-      leftright = request.form['leftright']
-      tofro = request.form['tofro']
-      
-      with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+      token = request.args.get('token')
+      raceid = request.args.get('raceid')
+
+
+      with sql.connect("//var//www//FlaskApps//HelloWord//poc") as con:
          cur = con.cursor()
-         cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
-            (c,updown,leftright,tofro,datetime.today()))  
-         con.commit()
-         msg = "record added"
+         cur.execute("SELECT * FROM players WHERE token = ? AND raceid = ?", (token, raceid)) 
+         rows = cur.fetchall()
+         if len(rows) > 0:
+             c = request.form['command'] 
+             updown = request.form['updown']
+             leftright = request.form['leftright']
+             tofro = request.form['tofro']
+             cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
+                (c,updown,leftright,tofro,datetime.today()))  
+             con.commit()
+             msg = "record added"
    except: 
       msg = "failed"     
       con.rollback()
