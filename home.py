@@ -52,8 +52,41 @@ def registerUser():
         finally:
             con.close()
     
+<<<<<<< HEAD
     
     
+=======
+@app.route('/getConfig')
+def getConfig():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            team = request.args.get('team')
+
+            cur = con.cursor()
+            cur.execute("SELECT * FROM blimpconfig WHERE team = ?", team)
+            row = cur.fetchone()
+            config = {}
+            if len(row) > 0:
+                config["team"] = row.team
+                config["trimupdown"] = row.trimupdown
+                config["trimleftright"] = row.trimleftright
+                config["upduration"] = row.upduration
+                config["leftrightduration"] = row.leftrightduration
+                config["tofroduration"] = row.tofroduration
+                config["upspeed"] = row.upspeed
+                config["tofrospeed"] = row.tofrospeed
+                config["leftrightspeed"] = row.leftrightspeed
+            else:
+                config["team"] = team
+                config["status"] = "no config found"
+
+            return jsonify(config)
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close()      
+>>>>>>> 4a39773aa22379803c8d4fd894e79f7a8f3b81ff
 
 @app.route('/getCommand')
 def getCommand():
@@ -83,6 +116,25 @@ def getCommand():
         finally:
             con.close()
  
+@app.route('/getCurrentRace')
+def getCurrentRace():
+   with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+       try:
+           cur = con.cursor()
+           cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
+           row = cur.fetchone()
+           thecommand = {}
+           if row != null:
+               thecommand["race"] = row[0]
+           else:
+               thecommand["race"] = "none"
+
+           return jsonify(thecommand)
+       except:
+           con.rollback()
+           raise;
+       finally:
+           con.close()
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
