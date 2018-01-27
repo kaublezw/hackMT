@@ -111,25 +111,25 @@ def getCommand():
         finally:
             con.close()
  
- @app.route('/getCurrentRace')
- def getCurrentRace():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
-            cur = con.cursor()
-            cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
-            row = cur.fetchone()
-            thecommand = {}
-            if row != null:
-                thecommand["race"] = row[0]
-            else:
-                thecommand["race"] = "none"
+@app.route('/getCurrentRace')
+def getCurrentRace():
+   with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+       try:
+           cur = con.cursor()
+           cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
+           row = cur.fetchone()
+           thecommand = {}
+           if row != null:
+               thecommand["race"] = row[0]
+           else:
+               thecommand["race"] = "none"
 
-            return jsonify(thecommand)
-        except:
-            con.rollback()
-            raise;
-        finally:
-            con.close()
+           return jsonify(thecommand)
+       except:
+           con.rollback()
+           raise;
+       finally:
+           con.close()
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
