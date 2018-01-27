@@ -52,8 +52,36 @@ def registerUser():
         finally:
             con.close()
     
-    
-    
+@app.route('/getConfig')
+def getConfig():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            team = request.args.get('team')
+
+            cur = con.cursor()
+            cur.execute("SELECT * FROM blimpconfig WHERE team = ?", team)
+            row = cur.fetchone()
+            config = {}
+            if row != null
+                config["team"] = row.team
+                config["trimupdown"] = row.trimupdown
+                config["trimleftright"] = row.trimleftright
+                config["upduration"] = row.upduration
+                config["leftrightduration"] = row.leftrightduration
+                config["tofroduration"] = row.tofroduration
+                config["upspeed"] = row.upspeed
+                config["tofrospeed"] = row.tofrospeed
+                config["leftrightspeed"] = row.leftrightspeed
+            else:
+                config["team"] = team
+                config["status"] = "no config found"
+
+            return jsonify(config)
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close()      
 
 @app.route('/getCommand')
 def getCommand():
