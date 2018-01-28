@@ -22,9 +22,9 @@
 				</thead>
 
 				<tbody>
-					<tr><td>Blimp</td><td><select name="blimp" id="blimp"><option value="1">Blimp 1</option><option value="2">Blimp 2</option></select></td></tr>
+					<tr><td>Blimp</td><td><select name="blimp" id="blimp"><option value="">Choose</option><option value="1">Blimp 1</option><option value="2">Blimp 2</option></select></td></tr>
 					<tr><td>Trim Up-Down</td><td><input type="text" value="" id="trimupdown"></td></tr>
-					<tr><td>Trim Left-Right</td><input type="text" value="" id="trimleftright"><td></td></tr>
+					<tr><td>Trim Left-Right</td><td><input type="text" value="" id="trimleftright"></td></tr>
 					<tr><td>Up Duration</td><td><input type="text" value="" id="upduration"></td></tr>
 					<tr><td>Left-Right Duration</td><td><input type="text" value="" id="leftrightduration"></td></tr>
 					<tr><td>To-From Duration</td><td><input type="text" value="" id="tofroduration"></td></tr>
@@ -46,11 +46,11 @@
                 {
                     //set all of the values from the form via DOM
                     document.getElementById("trimupdown").setAttribute("value", data.trimupdown);
-                    document.getElementById("trimleftright").setAttribute("value", data.trimpleftright);
+                    document.getElementById("trimleftright").setAttribute("value", data.trimleftright);
                     document.getElementById("upduration").setAttribute("value", data.upduration);
                     document.getElementById("leftrightduration").setAttribute("value", data.leftrightduration);
                     document.getElementById("tofroduration").setAttribute("value", data.tofroduration);
-                    document.getElementById("upseed").setAttribute("value", data.upseed);
+                    document.getElementById("upspeed").setAttribute("value", data.upspeed);
                     document.getElementById("tofrospeed").setAttribute("value", data.tofrospeed);
                     document.getElementById("leftrightspeed").setAttribute("value", data.leftrightspeed);
                 });
@@ -61,11 +61,11 @@
                 $.post("updateBlimpConfig", { 
                     team: document.getElementById("blimp").value,
                     trimupdown: document.getElementById("trimupdown").value,
-                    trimpleftright: document.getElementById("trimleftright").value,
+                    trimleftright: document.getElementById("trimleftright").value,
                     upduration: document.getElementById("upduration").value,
                     leftrightduration: document.getElementById("leftrightduration").value,
                     tofroduration: document.getElementById("tofroduration").value,
-                    upspeed: document.getElementById("upseed").value,
+                    upspeed: document.getElementById("upspeed").value,
                     tofrospeed: document.getElementById("tofrospeed").value,
                     leftrightspeed: document.getElementById("leftrightspeed").value });
             });

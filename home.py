@@ -19,9 +19,13 @@ def controls():
 def controls2():
     return render_template('controls2.html')
 
+@app.route('/blimpconfig')
+def blimpconfig():
+    return render_template('blimpconfig.html')
+
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+    with sql.connect("poc") as con:
         try:
             team = request.form['name']
             raceid = request.form['raceid']
@@ -55,7 +59,7 @@ def registerUser():
 
 @app.route('/getPlayers')
 def getUsers():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+    with sql.connect("poc") as con:
         try:
             raceid = request.args.get('raceid')
 
@@ -80,39 +84,34 @@ def getUsers():
 
 @app.route('/getConfig')
 def getConfig():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
+    with sql.connect("poc") as con:
             team = request.args.get('team')
 
             cur = con.cursor()
-            cur.execute("SELECT * FROM blimpconfig WHERE team = ?", (team,))
+            cur.execute("SELECT team, trimupdown, trimleftright, upduration, leftrightduration, tofroduration, upspeed, tofrospeed, leftrightspeed FROM blimpconfig WHERE team = ?", (team,))
             row = cur.fetchone()
             config = {}
             if len(row) > 0:
-                config["team"] = row.team
-                config["trimupdown"] = row.trimupdown
-                config["trimleftright"] = row.trimleftright
-                config["upduration"] = row.upduration
-                config["leftrightduration"] = row.leftrightduration
-                config["tofroduration"] = row.tofroduration
-                config["upspeed"] = row.upspeed
-                config["tofrospeed"] = row.tofrospeed
-                config["leftrightspeed"] = row.leftrightspeed
+                config["team"] = row[0]
+                config["trimupdown"] = row[1]
+                config["trimleftright"] = row[2]
+                config["upduration"] = row[3]
+                config["leftrightduration"] = row[4]
+                config["tofroduration"] = row[5]
+                config["upspeed"] = row[6]
+                config["tofrospeed"] = row[7]
+                config["leftrightspeed"] = row[8]
             else:
                 config["team"] = team
                 config["status"] = "no config found"
 
             return jsonify(config)
-        except:
-            con.rollback()
-            raise;
-        finally:
             con.close()      
 
 @app.route('/getCommand')
 def getCommand():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
+    with sql.connect("poc") as con:
+        
             team = request.args.get('team')
 
             cur = con.cursor()
@@ -131,15 +130,12 @@ def getCommand():
                 thecommand["command"] = "none"
 
             return jsonify(thecommand)
-        except:
-            con.rollback()
-            raise;
-        finally:
+        
             con.close()
  
 @app.route('/getCurrentRace')
 def getCurrentRace():
-   with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+   with sql.connect("poc") as con:
        try:
            cur = con.cursor()
            cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
@@ -159,7 +155,7 @@ def getCurrentRace():
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
-    with sql.connect("//var//www/FLASK//HelloWorld//poc") as con:
+    with sql.connect("poc") as con:
         try:
             token = request.args.get('token')
             raceid = request.args.get('raceid')
@@ -213,8 +209,7 @@ def issueCommand():
 
 @app.route('/updateBlimpConfig', methods=['POST'])
 def updateBlimpConfig():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
+    with sql.connect("poc") as con:
             cur = con.cursor()
             team = request.form['team']
             trimupdown = request.form['trimupdown']
@@ -226,18 +221,10 @@ def updateBlimpConfig():
             tofrospeed = request.form['tofrospeed']
             leftrightspeed = request.form['leftrightspeed']
 
-            cur.execute("UPDATE INTO blimpconfig SET trimupdown = ?, trimleftright = ?, upduration = ?, leftrightduration = ?,"
+            cur.execute("UPDATE blimpconfig SET trimupdown = ?, trimleftright = ?, upduration = ?, leftrightduration = ?,"
                         "tofroduration = ?, upspeed = ?, tofrospeed = ?, leftrightspeed = ? WHERE team = ?",
                         (trimupdown, trimleftright, upduration, leftrightduration, tofroduration, upspeed, tofrospeed, leftrightspeed,
-                         team))
-            con.commit()
-            msg = "record added"
-        except:
-            msg = "failed"
-            con.rollback()
-        finally:
-            return msg
-            con.close()
-
+                         team,))
+	    return "success"
 if __name__ == "__main__":
    app.run(debug=True)
