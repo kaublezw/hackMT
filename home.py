@@ -199,7 +199,7 @@ def issueCommand():
                 c = request.form['command'] 
                 updown = request.form['updown']
                 leftright = request.form['leftright']
-                tofro = request.form['tofro']s
+                tofro = request.form['tofro']
                 cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
                    (c,updown,leftright,tofro,datetime.today(), team,))  
                 con.commit()
