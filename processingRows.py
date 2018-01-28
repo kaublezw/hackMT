@@ -24,7 +24,10 @@ def processRows(rows):
     updown = sum(c[1] for c in rows)
     leftright = sum(c[2] for c in rows)
     tofro = sum(c[3] for c in rows)
-    team = rows[0][5]
+    for row in rows:
+        team = row[5]
+        break
+    
 
     if updown>0:
         updown = 1
