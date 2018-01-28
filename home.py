@@ -60,7 +60,7 @@ def getUsers():
             raceid = request.args.get('raceid')
 
             cur = con.cursor()
-            cur.execute("SELECT * FROM players WHERE raceid = ?", raceid)
+            cur.execute("SELECT * FROM players WHERE raceid = ?", (raceid,))
             rows = cur.fetchall()
             config = {}
             if len(rows) > 0:
@@ -85,7 +85,7 @@ def getConfig():
             team = request.args.get('team')
 
             cur = con.cursor()
-            cur.execute("SELECT * FROM blimpconfig WHERE team = ?", team)
+            cur.execute("SELECT * FROM blimpconfig WHERE team = ?", (team,))
             row = cur.fetchone()
             config = {}
             if len(row) > 0:
@@ -116,7 +116,7 @@ def getCommand():
             team = request.args.get('team')
 
             cur = con.cursor()
-            cur.execute("SELECT command, updown, leftright, tofro FROM commands WHERE team = ? ORDER BY issued_date DESC LIMIT 1", team)
+            cur.execute("SELECT command, updown, leftright, tofro FROM commands WHERE team = ? ORDER BY issued_date DESC LIMIT 1", (team,))
             rows = cur.fetchall()
             thecommand = {}
             if len(rows) > 0:
