@@ -32,7 +32,7 @@ def registerUser():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
             team = request.form['name']
             raceid = request.form['raceid']
-            token = urandom(12).encode('hex')
+            token = os.urandom(12).encode('hex')
  
             cur = con.cursor()
             cur.execute("SELECT count(*) FROM players WHERE team = 1")
