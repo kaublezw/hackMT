@@ -33,12 +33,19 @@ Name: <input type="text" name="FirstName" value="" id="name"><br>
 </body>
 </html>
 
-<script src= "SOME WEB PAGE????"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-function myFunction() {
-    var x = document.getElementById("name");
-    var name = x.value;
-    alert(name);
-    $.post("registerUser", { name: name, raceid: TODO });
-}
-</script>
+$( document ).ready(function()  {
+	var raceid = "";
+
+	$.getJSON("getCurrentRace",function(data){
+	race = data.raceid
+
+	$("#buttonid").on('onclick', function()
+		var x = document.getElementById("name");
+		var newName = x.value;
+		$.post("registerUser", { name: newName, raceid: race });
+	
+  }
+});

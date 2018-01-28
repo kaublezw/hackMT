@@ -1,2 +1,75 @@
-<html>
+<html lang="en">
+	<head>
+		<title>Blimp Settings</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    		<style>
+      		 .margins {margin-top: 20%;}
+    		</style>
+
+
+	<body>
+		<div class="container">
+			<h2>Blimp Settings</h2>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>setting</th>
+						<th>value</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr><td>Blimp</td><td><select name="blimp" id="blimp"><option value="1">Blimp 1</option><option value="2">Blimp 2</option></select></td></tr>
+					<tr><td>Trim Up-Down</td><td><input type="text" value="" id="trimupdown"></td></tr>
+					<tr><td>Trim Left-Right</td><input type="text" value="" id="trimleftright"><td></td></tr>
+					<tr><td>Up Duration</td><td><input type="text" value="" id="upduration"></td></tr>
+					<tr><td>Left-Right Duration</td><td><input type="text" value="" id="leftrightduration"></td></tr>
+					<tr><td>To-From Duration</td><td><input type="text" value="" id="tofroduration"></td></tr>
+					<tr><td>Up Speed</td><td><input type="text" value="" id="upspeed"></td></tr>
+					<tr><td>Left-Right Speed</td><td><input type="text" value="" id="leftrightspeed"></td></tr>
+					<tr><td>To-From Speed</td><td><input type="text" value="" id="tofrospeed"></td></tr>
+				</tbody>
+			</table> <button type="button" id="save">submit</button>
+		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
+		<script>
+          $(document).ready(function () {
+            $("#blimp").on("change", function () {
+                var blimpTeam = document.getElementById("blimp").value;
+                $.getJSON("getConfig",{ team: blimpTeam }, function(data)
+                {
+                    //set all of the values from the form via DOM
+                    document.getElementById("trimupdown").setAttribute("value", data.trimupdown);
+                    document.getElementById("trimleftright").setAttribute("value", data.trimpleftright);
+                    document.getElementById("upduration").setAttribute("value", data.upduration);
+                    document.getElementById("leftrightduration").setAttribute("value", data.leftrightduration);
+                    document.getElementById("tofroduration").setAttribute("value", data.tofroduration);
+                    document.getElementById("upseed").setAttribute("value", data.upseed);
+                    document.getElementById("tofrospeed").setAttribute("value", data.tofrospeed);
+                    document.getElementById("leftrightspeed").setAttribute("value", data.leftrightspeed);
+                });
+            });
+
+            $("#save").on("click", function (){
+                //get all of the values from the form via DOM
+                $.post("updateBlimpConfig", { 
+                    team: document.getElementById("blimp").value,
+                    trimupdown: document.getElementById("trimupdown").value,
+                    trimpleftright: document.getElementById("trimleftright").value,
+                    upduration: document.getElementById("upduration").value,
+                    leftrightduration: document.getElementById("leftrightduration").value,
+                    tofroduration: document.getElementById("tofroduration").value,
+                    upspeed: document.getElementById("upseed").value,
+                    tofrospeed: document.getElementById("tofrospeed").value,
+                    leftrightspeed: document.getElementById("leftrightspeed").value });
+            });
+          });
+      </script>
+	</body>
 </html>

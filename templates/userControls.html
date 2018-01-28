@@ -104,42 +104,37 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
       <script>
           $(document).ready(function () {
-              $("#up").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "1", leftright: "0", tofro: "0" });
-              });
-              $("#up").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#down").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "-1", leftright: "0", tofro: "0" });
-              });
-              $("#down").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#left").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "1", tofro: "0" });
-              });
-              $("#left").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#right").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "-1", tofro: "0" });
-              });
-              $("#right").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#forward").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "1" });
-              });
-              $("#forward").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
-              $("#backward").on('tapstart', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "-1" });
-              });
-              $("#backward").on('tapend', function () {
-                  $.post("queueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "0" });
-              });
+			 var getQueryString = function (field, url) {
+				var href = url ? url : window.location.href;
+				var reg = new RegExp('[?&]' + field + '=([^&#]*)', 'i');
+				var string = reg.exec(href);
+				return string ? string[1] : null;
+				};
+				
+			 var mytoken=getQueryString("token")
+			 	 	
+             $("#up").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "1", leftright: "0", tofro: "0" });
+             });
+             $("#down").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "-1", leftright: "0", tofro: "0" });
+             });
+
+             $("#left").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "1", tofro: "0" });
+             });
+
+             $("#right").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "-1", tofro: "0" });
+             });
+
+             $("#forward").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "0", tofro: "1" });
+             });
+
+             $("#backward").on('tap', function () {
+                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "0", tofro: "-1" });
+             });
 
           });
 
