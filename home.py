@@ -189,7 +189,7 @@ def queueCommand():
 def issueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         #try:
-            mytoken = request.form['token']
+            token = request.form['token']
             team = request.form['team']
 
             cur = con.cursor()
