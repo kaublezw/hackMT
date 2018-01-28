@@ -40,6 +40,6 @@ def processRows(rows):
         tofro = -1
     cur.execute("INSERT INTO commands (command, updown, leftright, tofro, issued_date, team) VALUES ('move',?,?,?,?,?)", (updown,leftright,tofro, datetime.today(), team,))
 
-while true:
+while True:
     mainWinner()
     time.sleep(.5)
