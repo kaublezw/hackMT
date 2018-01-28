@@ -6,7 +6,7 @@ con = sql.connect("//var//www//FlaskApps//HelloWorld//poc")
 cur = con.cursor()
     
 def main():
-            cur.execute("SELECT command, updown, leftright, tofro, issued_date, team FROM commands_queue WHERE command='move'")
+            cur.execute("SELECT command, updown, leftright, tofro, issued_date, team FROM commands_queue WHERE command='Move'")
             allrows = cur.fetchall()
             if len(allrows) >0:
                 team1rows = [x for x in allrows if x[5] == 1]
@@ -38,7 +38,7 @@ def processRows(rows):
         tofro = 1
     if tofro<0:
         tofro = -1
-    cur.execute("INSERT INTO commands (command, updown, leftright, tofro, issued_date, team) VALUES ('move',?,?,?,?,?)", (updown,leftright,tofro, datetime.today(), team,))
+    cur.execute("INSERT INTO commands (command, updown, leftright, tofro, issued_date, team) VALUES ('Move',?,?,?,?,?)", (updown,leftright,tofro, datetime.today(), team,))
 
 while True:
     main()
