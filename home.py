@@ -201,7 +201,7 @@ def issueCommand():
                 leftright = request.form['leftright']
                 tofro = request.form['tofro']
                 cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
-                   (c,updown,leftright,tofro,datetime.today()))  
+                   (c,updown,leftright,tofro,datetime.today(), team))  
                 con.commit()
                 msg = "record added"
         #except: 
