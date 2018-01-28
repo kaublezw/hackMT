@@ -149,7 +149,6 @@ def getCurrentRace():
         else:
             thecommand["raceid"] = row[0]
 
-        con.close()
         return jsonify(thecommand)
         
 
