@@ -189,11 +189,11 @@ def queueCommand():
 def issueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         #try:
-            token = request.form['token']
+            mytoken = request.form['token']
             team = request.form['team']
 
             cur = con.cursor()
-            cur.execute("SELECT * FROM players WHERE token = ?", token) 
+            cur.execute("SELECT * FROM players WHERE token = ?", (token,)) 
             rows = cur.fetchall()
             if len(rows) > 0:
                 c = request.form['command'] 
