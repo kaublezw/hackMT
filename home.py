@@ -187,7 +187,7 @@ def queueCommand():
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
-    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+    with sql.connect("poc") as con:
         try:
             token = request.form['token']
             team = request.form['team']
@@ -199,7 +199,7 @@ def issueCommand():
                 c = request.form['command'] 
                 updown = request.form['updown']
                 leftright = request.form['leftright']
-                tofro = request.form['tofro']s
+                tofro = request.form['tofro']
                 cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
                    (c,updown,leftright,tofro,datetime.today(), team,))  
                 con.commit()
