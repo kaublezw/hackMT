@@ -114,26 +114,26 @@
 			 var mytoken=getQueryString("token")
 			 	 	
              $("#up").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "1", leftright: "0", tofro: "0" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "1", leftright: "0", tofro: "0" });
              });
              $("#down").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "-1", leftright: "0", tofro: "0" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "-1", leftright: "0", tofro: "0" });
              });
 
              $("#left").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "1", tofro: "0" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "0", leftright: "1", tofro: "0" });
              });
 
              $("#right").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "-1", tofro: "0" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "0", leftright: "-1", tofro: "0" });
              });
 
              $("#forward").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "0", tofro: "1" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "0", leftright: "0", tofro: "1" });
              });
 
              $("#backward").on('tap', function () {
-                 $.post("issueCommand", { token: "mytoken", command: "Move", updown: "0", leftright: "0", tofro: "-1" });
+                 $.post("issueCommand", { token: mytoken, command: "Move", updown: "0", leftright: "0", tofro: "-1" });
              });
 
           });

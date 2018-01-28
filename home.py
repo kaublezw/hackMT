@@ -23,6 +23,10 @@ def controls2():
 def blimpconfig():
     return render_template('blimpconfig.html')
 
+@app.route('/raceRegistration')
+def raceRegistration():
+    return render_template('raceRegistration.html')
+
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
@@ -136,22 +140,18 @@ def getCommand():
 @app.route('/getCurrentRace')
 def getCurrentRace():
    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-       try:
-           cur = con.cursor()
-           cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
-           row = cur.fetchone()
-           thecommand = {}
-           if row != null:
-               thecommand["race"] = row[0]
-           else:
-               thecommand["race"] = "none"
+        cur = con.cursor()
+        cur.execute("SELECT raceid FROM race WHERE start_date is null AND stop_date is null ORDER BY start_date DESC LIMIT 1")
+        row = cur.fetchone()
+        thecommand = {}
+        if len(row) > 0:
+            thecommand["raceid"] = row[0]
+        else:
+            thecommand["raceid"] = "none"
 
-           return jsonify(thecommand)
-       except:
-           con.rollback()
-           raise;
-       finally:
-           con.close()
+        con.close()
+        return jsonify(thecommand)
+        
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():

@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      .margins {margin-top: 20%;}
+    </style>
+	<title>Race Registration</title>
+</head>
+<body>
+<div class="container">
+  <h2>Registration</h2>
+  <div class="row">
+    <div class="col-4">
+      Name: 
+    </div>
+    <div class="col-4">
+      <input type="text" id="name" value=""></input>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+      &nbsp;
+    </div>
+    <div class="col-4">
+      <button type="button" id="save">Submit</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-touch-events/1.0.5/jquery.mobile-events.js"></script>
+<script>
+  $(document).ready(function () {
+    var race = "";
+    $.getJSON("getCurrentRace", function( data ) {
+      race = data.raceid;
+      if(race == "none")
+      {
+        document.getElementById("save").disabled = true;
+      }
+      else
+      {
+        document.getElementById("save").disabled = false;
+      }
+    });
+
+    $("#save").on('click', function () {
+        var newName = document.getElementById("name").value;
+        $.post("registerUser", { name: newName, raceid: race}, function(data){
+            processToken(data)
+        });
+    });
+
+    function processToken(data){
+      var token = data;
+      window.location.replace("playerControls?token=" + token);
+    }
+  });
+</script>
