@@ -141,7 +141,7 @@ def getCommand():
 def getCurrentRace():
    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         cur = con.cursor()
-        cur.execute("SELECT raceid FROM race WHERE start_date is null AND stop_date is null ORDER BY start_date DESC LIMIT 1")
+        cur.execute("SELECT rowid FROM race WHERE start_date is null AND stop_date is null ORDER BY start_date DESC LIMIT 1")
         row = cur.fetchone()
         thecommand = {}
         if row is None:
