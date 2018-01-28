@@ -53,6 +53,31 @@ def registerUser():
         finally:
             con.close()
 
+@app.route('/getPlayers')
+def getUsers():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
+            raceid = request.args.get('raceid')
+
+            cur = con.cursor()
+            cur.execute("SELECT * FROM players WHERE raceid = ?", raceid)
+            rows = cur.fetchall()
+            config = {}
+            if len(rows) > 0:
+                for row in rows:
+                    config["team"] = row.team
+                    config["name"] = row.name
+            else:
+                config["team"] = "none"
+                config["name"] = "none"
+
+            return jsonify(config)
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close() 
+
 @app.route('/getConfig')
 def getConfig():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
