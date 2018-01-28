@@ -25,7 +25,7 @@ def blimpconfig():
 
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             team = request.form['name']
             raceid = request.form['raceid']
@@ -59,7 +59,7 @@ def registerUser():
 
 @app.route('/getPlayers')
 def getUsers():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             raceid = request.args.get('raceid')
 
@@ -84,7 +84,7 @@ def getUsers():
 
 @app.route('/getConfig')
 def getConfig():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
             team = request.args.get('team')
 
             cur = con.cursor()
@@ -135,7 +135,7 @@ def getCommand():
  
 @app.route('/getCurrentRace')
 def getCurrentRace():
-   with sql.connect("poc") as con:
+   with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
        try:
            cur = con.cursor()
            cur.execute("SELECT raceid FROM race WHERE stop_date is null ORDER BY start_date DESC LIMIT 1")
@@ -155,7 +155,7 @@ def getCurrentRace():
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             token = request.args.get('token')
             raceid = request.args.get('raceid')
@@ -209,7 +209,7 @@ def issueCommand():
 
 @app.route('/updateBlimpConfig', methods=['POST'])
 def updateBlimpConfig():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
             cur = con.cursor()
             team = request.form['team']
             trimupdown = request.form['trimupdown']
