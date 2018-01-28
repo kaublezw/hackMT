@@ -148,29 +148,21 @@ def getCurrentRace():
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
-            token = request.args.get('token')
-            raceid = request.args.get('raceid')
+            token = request.form['token']
     
     
             cur = con.cursor()
-            cur.execute("SELECT * FROM players WHERE token = ? AND raceid = ?", (token, raceid)) 
-            rows = cur.fetchall()
-            if len(rows) > 0:
+            cur.execute("SELECT team FROM players WHERE token = ?", (token,)) 
+            row = cur.fetchone()
+            if row is not None:
                 c = request.form['command'] 
                 updown = request.form['updown']
                 leftright = request.form['leftright']
                 tofro = request.form['tofro']
-                cur.execute("INSERT INTO commands_queue(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
-                    (c,updown,leftright,tofro,datetime.today()))  
-                con.commit()
-                msg = "record added"
-        except: 
-            msg = "failed"     
-            con.rollback()
-        finally:
-            return  msg
-            con.close()
+                team = row[0]
+                cur.execute("INSERT INTO commands_queue(command,updown,leftright,tofro, issued_date, team) VALUES(?,?,?,?,?,?)", 
+                    (c,updown,leftright,tofro,datetime.today(), team,))
+            return  "sucess"
 
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
