@@ -162,13 +162,14 @@ def queueCommand():
                 team = row[0]
                 cur.execute("INSERT INTO commands_queue(command,updown,leftright,tofro, issued_date, team) VALUES(?,?,?,?,?,?)", 
                     (c,updown,leftright,tofro,datetime.today(), team,))
-            return  "sucess"
+                return  "sucess"
+            else:
+                return "not successful"
 
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
             token = request.form['token']
             team = request.form['team']
 
@@ -183,13 +184,9 @@ def issueCommand():
                 cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
                    (c,updown,leftright,tofro,datetime.today(), team,))  
                 con.commit()
-                msg = "record added"
-        except: 
-            msg = "failed"     
-            con.rollback()
-        finally:
-            return  msg
-            con.close()
+                return "record added"
+            else:
+                return "no record added"
 
 @app.route('/updateBlimpConfig', methods=['POST'])
 def updateBlimpConfig():
