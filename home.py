@@ -30,7 +30,7 @@ def raceRegistration():
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-            team = request.form['name']
+            name = request.form['name']
             raceid = request.form['raceid']
             token = os.urandom(12).encode('hex')
  
