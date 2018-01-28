@@ -125,19 +125,19 @@
               });
 
               $("#left").on('tap', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "1", tofro: "0" });
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "0", leftright: "1", tofro: "0" });
               });
 
               $("#right").on('tap', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "-1", tofro: "0" });
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "0", leftright: "-1", tofro: "0" });
               });
 
               $("#forward").on('tap', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "1" });
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "0", leftright: "0", tofro: "1" });
               });
 
               $("#backward").on('tap', function () {
-                  $.post("issueCommand", { command: "Move", updown: "0", leftright: "0", tofro: "-1" });
+                  $.post("issueCommand", { token: "admin", command: "Move", updown: "0", leftright: "0", tofro: "-1" });
               });
           });
 

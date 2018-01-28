@@ -165,7 +165,7 @@ def issueCommand():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             token = request.form['token']
-
+            team = request.form['team']
 
             cur = con.cursor()
             cur.execute("SELECT * FROM players WHERE token = ?", (token)) 
@@ -175,7 +175,7 @@ def issueCommand():
                 updown = request.form['updown']
                 leftright = request.form['leftright']
                 tofro = request.form['tofro']
-                cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date) VALUES(?,?,?,?,?)", 
+                cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
                    (c,updown,leftright,tofro,datetime.today()))  
                 con.commit()
                 msg = "record added"
