@@ -3,9 +3,9 @@ import sqlite3 as sql
 import time
 
 con = sql.connect("//var//www//FlaskApps//HelloWorld//poc")
-cur = con.cursor()
     
 def main():
+            cur = con.cursor()
             cur.execute("SELECT command, updown, leftright, tofro, issued_date, team FROM commands_queue WHERE command='Move'")
             allrows = cur.fetchall()
             if len(allrows) >0:
@@ -21,6 +21,7 @@ def main():
 
 
 def processRows(rows):
+    cur = con.cursor()
     updown = sum(c[1] for c in rows)
     leftright = sum(c[2] for c in rows)
     tofro = sum(c[3] for c in rows)
@@ -43,7 +44,7 @@ def processRows(rows):
     if tofro<0:
         tofro = -1
     cur.execute("INSERT INTO commands (command, updown, leftright, tofro, issued_date, team) VALUES ('Move',?,?,?,?,?)", (updown,leftright,tofro, datetime.today(), team,))
-
+    con.commit()
 while True:
     main()
     time.sleep(.5)
