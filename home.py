@@ -30,7 +30,6 @@ def raceRegistration():
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
     with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
-        try:
             team = request.form['name']
             raceid = request.form['raceid']
             token = urandom(12).encode('hex')
@@ -51,15 +50,9 @@ def registerUser():
             else:
                 team = 1
         
-            cur.execute("INSERT INTO players (name, token, raceid, team) VALUES (?,?,?,?)", (name, token, raceid, team))
-            con.commit()
+            cur.execute("INSERT INTO players (name, token, raceid, team) VALUES (?,?,?,?)", (name, token, raceid, team,))
 
             return token
-        except:
-            con.rollback()
-            raise;
-        finally:
-            con.close()
 
 @app.route('/getPlayers')
 def getUsers():
