@@ -11,9 +11,9 @@ app.debug = True
 def home():
     return  "Hello World 2"
 
-@app.route('/controls')
-def controls():
-    return render_template('controls.html')
+@app.route('/userControls')
+def userControls():
+    return render_template('userControls.html')
 
 @app.route('/controls2')
 def controls2():
