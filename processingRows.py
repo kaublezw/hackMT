@@ -41,5 +41,5 @@ def processRows(rows):
     cur.execute("INSERT INTO commands (command, updown, leftright, tofro, issued_date, team) VALUES ('move',?,?,?,?,?)", (updown,leftright,tofro, datetime.today(), team,))
 
 while True:
-    mainWinner()
+    main()
     time.sleep(.5)
