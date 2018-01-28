@@ -9,8 +9,9 @@ def main():
             cur.execute("SELECT command, updown, leftright, tofro, issued_date, team FROM commands_queue WHERE command='Move'")
             allrows = cur.fetchall()
             if len(allrows) >0:
-                team1rows = [x for x in allrows if x[5] == 1]
-                team2rows = [x for x in allrows if x[5] == 2]
+                
+                team1rows = [x for x in allrows if x[5] == "1"]
+                team2rows = [x for x in allrows if x[5] == "2"]
                 processRows(team1rows)
                 processRows(team2rows)
                 cur.execute("DELETE FROM commands_queue")
