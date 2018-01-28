@@ -24,9 +24,9 @@ def main():
 
 def processRows(rows):
     cur = con.cursor()
-    updown = sum(c[1] for c in rows)
-    leftright = sum(c[2] for c in rows)
-    tofro = sum(c[3] for c in rows)
+    updown = sum(int(c[1]) for c in rows)
+    leftright = sum(int(c[2]) for c in rows)
+    tofro = sum(int(c[3]) for c in rows)
     team = ""
     for row in rows:
         team = row[5]
