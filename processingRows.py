@@ -14,6 +14,7 @@ def main():
                 team2rows = [x for x in allrows if x[5] == "2"]
                 processRows(team1rows)
                 processRows(team2rows)
+                cur = con.cursor()
                 cur.execute("DELETE FROM commands_queue")
                 con.commit()
         
