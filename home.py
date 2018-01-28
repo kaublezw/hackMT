@@ -110,7 +110,7 @@ def getConfig():
 
 @app.route('/getCommand')
 def getCommand():
-    with sql.connect("poc") as con:
+    with sql.connect("//var/www/FlaskApps//HelloWorld//poc") as con:
         
             team = request.args.get('team')
 
