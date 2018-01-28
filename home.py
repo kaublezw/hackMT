@@ -122,7 +122,7 @@ def getCommand():
                     thecommand["updown"] = row[1]
                     thecommand["leftright"] = row[2]
                     thecommand["tofro"] = row[3]
-                cur.execute("DELETE FROM commands")
+                cur.execute("DELETE FROM commands WHERE team=?",(team,))
             else:
                 thecommand["command"] = "none"
 
