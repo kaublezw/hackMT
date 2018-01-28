@@ -183,7 +183,7 @@ def queueCommand():
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
-    with sql.connect("poc") as con:
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             token = request.form['token']
             team = request.form['team']
