@@ -3,9 +3,6 @@ from datetime import datetime
 import os
 import sqlite3 as sql
 
-con = sql.connect("//var//www//FlaskApps//HelloWorld//poc")
-
-
 app=Flask(__name__)
 
 app.debug = True
@@ -32,7 +29,8 @@ def raceRegistration():
 
 @app.route('/registerUser', methods=['POST'])
 def registerUser():
-    
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
             team = request.form['name']
             raceid = request.form['raceid']
             token = urandom(12).encode('hex')
@@ -57,9 +55,15 @@ def registerUser():
             con.commit()
 
             return token
+        except:
+            con.rollback()
+            raise;
+        finally:
+            con.close()
 
 @app.route('/getPlayers')
 def getUsers():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             raceid = request.args.get('raceid')
 
@@ -84,6 +88,7 @@ def getUsers():
 
 @app.route('/getConfig')
 def getConfig():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
             team = request.args.get('team')
 
             cur = con.cursor()
@@ -105,9 +110,11 @@ def getConfig():
                 config["status"] = "no config found"
 
             return jsonify(config)
+            con.close()      
 
 @app.route('/getCommand')
 def getCommand():
+    with sql.connect("//var/www/FlaskApps//HelloWorld//poc") as con:
         
             team = request.args.get('team')
 
@@ -128,9 +135,11 @@ def getCommand():
 
             return jsonify(thecommand)
         
+            con.close()
  
 @app.route('/getCurrentRace')
 def getCurrentRace():
+   with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         cur = con.cursor()
         cur.execute("SELECT rowid FROM race WHERE start_date is null AND stop_date is null ORDER BY start_date DESC LIMIT 1")
         row = cur.fetchone()
@@ -145,6 +154,7 @@ def getCurrentRace():
 
 @app.route('/queueCommand', methods=['POST'])
 def queueCommand():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
         try:
             token = request.args.get('token')
             raceid = request.args.get('raceid')
@@ -167,10 +177,13 @@ def queueCommand():
             con.rollback()
         finally:
             return  msg
+            con.close()
 
 #insert commands into database
 @app.route('/issueCommand', methods=['POST'])
 def issueCommand():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
+        try:
             token = request.form['token']
             team = request.form['team']
 
@@ -185,10 +198,17 @@ def issueCommand():
                 cur.execute("INSERT INTO commands(command,updown,leftright,tofro, issued_date,team) VALUES(?,?,?,?,?,?)", 
                    (c,updown,leftright,tofro,datetime.today(), team,))  
                 con.commit()
-            return "record added"
+                msg = "record added"
+        except: 
+            msg = "failed"     
+            con.rollback()
+        finally:
+            return  msg
+            con.close()
 
 @app.route('/updateBlimpConfig', methods=['POST'])
 def updateBlimpConfig():
+    with sql.connect("//var//www//FlaskApps//HelloWorld//poc") as con:
             cur = con.cursor()
             team = request.form['team']
             trimupdown = request.form['trimupdown']
