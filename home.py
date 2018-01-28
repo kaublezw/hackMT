@@ -144,10 +144,10 @@ def getCurrentRace():
         cur.execute("SELECT raceid FROM race WHERE start_date is null AND stop_date is null ORDER BY start_date DESC LIMIT 1")
         row = cur.fetchone()
         thecommand = {}
-        if len(row) > 0:
-            thecommand["raceid"] = row[0]
-        else:
+        if row is None:
             thecommand["raceid"] = "none"
+        else:
+            thecommand["raceid"] = row[0]
 
         con.close()
         return jsonify(thecommand)
