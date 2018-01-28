@@ -193,7 +193,7 @@ def issueCommand():
             team = request.form['team']
 
             cur = con.cursor()
-            cur.execute("SELECT * FROM players WHERE token = ?", (token)) 
+            cur.execute("SELECT * FROM players WHERE token = ?", token) 
             rows = cur.fetchall()
             if len(rows) > 0:
                 c = request.form['command'] 
